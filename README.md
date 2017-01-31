@@ -12,7 +12,7 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 
 ## Demo
 
-![](https://raw.githubusercontent.com/iodine/react-native-drawer-layout/master/example.gif)
+![](https://raw.githubusercontent.com/react-native-community/react-native-drawer-layout/master/example.gif)
 
 ## Examples
 
