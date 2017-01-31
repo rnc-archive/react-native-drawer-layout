@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:iodine/react-native-drawer-layout.git"
+    "url": "git@github.com:react-native-community/react-native-drawer-layout.git"
   },
   "author": "Brent Vatne <brentvatne@gmail.com> (https://github.com/brentvatne)",
   "contributors": [
