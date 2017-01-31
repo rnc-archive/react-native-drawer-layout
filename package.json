@@ -8,7 +8,11 @@
     "build": "npm run-script clear && npm run-script babel",
     "clear": "rm -rf dist/ && mkdir dist/",
     "prepublish": "npm run build",
-    "test": "xo"
+    "pretest": "xo",
+    "test": "jest src/**"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "files": [
     "dist/"
@@ -103,7 +107,10 @@
     "eslint-plugin-no-empty-blocks": "0.0.2",
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-react": "^3.13.1",
-    "react-native": "^0.25.0",
+    "jest": "^18.1.0",
+    "react": "^15.4.2",
+    "react-native": "^0.38",
+    "react-test-renderer": "16.0.0-alpha.0",
     "xo": "^0.12.1"
   }
 }
