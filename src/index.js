@@ -6,5 +6,5 @@ import {
 if (Platform.OS === 'android') {
   module.exports = DrawerLayoutAndroid;
 } else {
-  module.exports = require('./DrawerLayout.ios').default;
+  module.exports = require('./DrawerLayout').default;
 }

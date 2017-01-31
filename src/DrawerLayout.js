@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import ReactNative from 'react-native';
-
-const {
+import {
   Animated,
   Dimensions,
   InteractionManager,
@@ -11,11 +9,7 @@ const {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-} = ReactNative;
-
-const {
-  PropTypes,
-} = React;
+} from 'react-native';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
