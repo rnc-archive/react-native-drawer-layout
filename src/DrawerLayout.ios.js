@@ -60,6 +60,7 @@ export default class DrawerLayout extends React.Component {
     this.state = {
       openValue: new Animated.Value(0),
       drawerShown: false,
+      accessibilityViewIsModal: false 
     };
   }
 
@@ -68,8 +69,9 @@ export default class DrawerLayout extends React.Component {
 
     openValue.addListener(({ value }) => {
       const drawerShown = value > 0;
+      const accessibilityViewIsModal = drawerShown;
       if (drawerShown !== this.state.drawerShown) {
-        this.setState({ drawerShown });
+        this.setState({ drawerShown, accessibilityViewIsModal });
       }
 
       if (this.props.keyboardDismissMode === 'on-drag') {
@@ -105,6 +107,7 @@ export default class DrawerLayout extends React.Component {
     const {
       drawerShown,
       openValue,
+      accessibilityViewIsModal
     } = this.state;
 
     const {
@@ -155,7 +158,8 @@ export default class DrawerLayout extends React.Component {
               style={[styles.overlay, animatedOverlayStyles]} />
           </TouchableWithoutFeedback>
         }
-        <Animated.View style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
+        <Animated.View accessibilityViewIsModal={accessibilityViewIsModal} 
+          style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
           {this.props.renderNavigationView()}
         </Animated.View>
       </View>
