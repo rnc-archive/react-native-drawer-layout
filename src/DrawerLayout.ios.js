@@ -95,7 +95,7 @@ export default class DrawerLayout extends React.Component {
       onMoveShouldSetPanResponder: this._shouldSetPanResponder,
       onPanResponderGrant: this._panResponderGrant,
       onPanResponderMove: this._panResponderMove,
-      onPanResponderTerminationRequest: () => true,
+      onPanResponderTerminationRequest: () => false,
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: () => { },
     });
