@@ -7,9 +7,20 @@
     "babel": "babel src --out-dir dist",
     "build": "npm run-script clear && npm run-script babel",
     "clear": "rm -rf dist/ && mkdir dist/",
+    "lint:staged": "lint-staged",
     "prepublish": "npm run build",
     "test": "xo"
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote --trailing-comma all --tabWidth 4",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "lint:staged",
+    "test"
+  ],
   "files": [
     "dist/"
   ],
@@ -35,11 +46,11 @@
       "dist/*"
     ],
     "esnext": true,
-    "space": 2,
     "plugins": [
       "react"
     ],
     "rules": {
+      "indent": 0,
       "babel/object-curly-spacing": [
         2,
         "always"
@@ -64,17 +75,6 @@
       "react/no-set-state": 1,
       "react/prop-types": 2,
       "react/jsx-sort-prop-types": 2,
-      "react/jsx-closing-bracket-location": [
-        2,
-        {
-          "selfClosing": "after-props",
-          "nonEmpty": "after-props"
-        }
-      ],
-      "react/jsx-indent-props": [
-        2,
-        2
-      ],
       "react/self-closing-comp": 2
     }
   },
@@ -103,6 +103,9 @@
     "eslint-plugin-no-empty-blocks": "0.0.2",
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-react": "^3.13.1",
+    "lint-staged": "^3.3.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^0.19.0",
     "react-native": "^0.25.0",
     "xo": "^0.12.1"
   }

@@ -1,7 +1,4 @@
-import {
-  Platform,
-  DrawerLayoutAndroid,
-} from 'react-native';
+import { Platform, DrawerLayoutAndroid } from 'react-native';
 
 if (Platform.OS === 'android') {
   module.exports = DrawerLayoutAndroid;
