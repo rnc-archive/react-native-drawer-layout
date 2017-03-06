@@ -1,14 +1,17 @@
 ## react-native-drawer-layout [![CircleCI](https://circleci.com/gh/react-native-community/react-native-drawer-layout/tree/master.svg?style=svg)](https://circleci.com/gh/react-native-community/react-native-drawer-layout/tree/master)
 
-A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and native implementation on Android. Why? Because the drawer layout is a useful component regardless of the platform! And if you can use it without changing any code, that's perfect.
+A platform-agnostic drawer layout. It uses a pure JavaScript implementation on every platform to ensure consistency. We try to keep it up to date with the implementation of [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) and add features we see as necessary too.
 
 ## Add it to your project
 
 1. Run `npm install react-native-drawer-layout --save`
 2. Import the component by using one of these:
-  - `var DrawerLayout = require('react-native-drawer-layout');`
+  - `var DrawerLayout = require('react-native-drawer-layout').default;`
   - `import DrawerLayout from 'react-native-drawer-layout';`
-3. Follow the [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) docs -- the API is the same.
+3. Follow the [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) docs -- the API is the same. Everything that differs is explained below
+
+## API
+This includes the differences between our implementation and the official one [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content). Every breaking change is (hopefully) hidden behind a feature flag, so that this implementation may also be used as polyfill.
 
 ## Demo
 
@@ -23,7 +26,8 @@ To run the demo please run `npm install` in the `DrawerLayoutExample/` directory
 
 ## Support
 
-| React Native Version      | react-native-dismiss-keyboard Version |
+| React Native Version      | react-nativ
+  e-dismiss-keyboard Version |
 |---------------------------|---------------------------------------|
 | >= 11 & < 23              | < 1.0                                 |
 | >= 23                     | >= 1.0                                |
