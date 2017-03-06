@@ -368,6 +368,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     bottom: 0,
+    zIndex: 1001,
   },
   main: {
     flex: 1,
