@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
@@ -180,31 +180,33 @@ export default class DrawerLayout extends Component {
   @autobind openDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
-      toValue: 1,
-      bounciness: 0,
-      restSpeedThreshold: 0.1,
-      ...options,
-    }).start(() => {
-      if (this.props.onDrawerOpen) {
-        this.props.onDrawerOpen();
-      }
-      this._emitStateChanged(IDLE);
-    });
+        toValue: 1,
+        bounciness: 0,
+        restSpeedThreshold: 0.1,
+        ...options,
+      })
+      .start(() => {
+        if (this.props.onDrawerOpen) {
+          this.props.onDrawerOpen();
+        }
+        this._emitStateChanged(IDLE);
+      });
   }
 
   @autobind closeDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
-      toValue: 0,
-      bounciness: 0,
-      restSpeedThreshold: 1,
-      ...options,
-    }).start(() => {
-      if (this.props.onDrawerClose) {
-        this.props.onDrawerClose();
-      }
-      this._emitStateChanged(IDLE);
-    });
+        toValue: 0,
+        bounciness: 0,
+        restSpeedThreshold: 1,
+        ...options,
+      })
+      .start(() => {
+        if (this.props.onDrawerClose) {
+          this.props.onDrawerClose();
+        }
+        this._emitStateChanged(IDLE);
+      });
   }
 
   @autobind _handleDrawerOpen() {
