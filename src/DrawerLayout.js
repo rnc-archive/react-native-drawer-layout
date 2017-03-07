@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import ReactNative from 'react-native';
-
-const {
+import {
   Animated,
   Dimensions,
   InteractionManager,
@@ -11,11 +9,7 @@ const {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-} = ReactNative;
-
-const {
-  PropTypes,
-} = React;
+} from 'react-native';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -25,7 +19,7 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
-export default class DrawerLayout extends React.Component {
+export default class DrawerLayout extends Component {
   static defaultProps = {
     drawerWidth: 0,
     drawerPosition: 'left',
@@ -186,33 +180,31 @@ export default class DrawerLayout extends React.Component {
   @autobind openDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
-        toValue: 1,
-        bounciness: 0,
-        restSpeedThreshold: 0.1,
-        ...options,
-      })
-      .start(() => {
-        if (this.props.onDrawerOpen) {
-          this.props.onDrawerOpen();
-        }
-        this._emitStateChanged(IDLE);
-      });
+      toValue: 1,
+      bounciness: 0,
+      restSpeedThreshold: 0.1,
+      ...options,
+    }).start(() => {
+      if (this.props.onDrawerOpen) {
+        this.props.onDrawerOpen();
+      }
+      this._emitStateChanged(IDLE);
+    });
   }
 
   @autobind closeDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
-        toValue: 0,
-        bounciness: 0,
-        restSpeedThreshold: 1,
-        ...options,
-      })
-      .start(() => {
-        if (this.props.onDrawerClose) {
-          this.props.onDrawerClose();
-        }
-        this._emitStateChanged(IDLE);
-      });
+      toValue: 0,
+      bounciness: 0,
+      restSpeedThreshold: 1,
+      ...options,
+    }).start(() => {
+      if (this.props.onDrawerClose) {
+        this.props.onDrawerClose();
+      }
+      this._emitStateChanged(IDLE);
+    });
   }
 
   @autobind _handleDrawerOpen() {
