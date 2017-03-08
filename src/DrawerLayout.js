@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import React, { Component, PropTypes } from 'react';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
