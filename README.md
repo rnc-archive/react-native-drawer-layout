@@ -26,8 +26,7 @@ To run the demo please run `npm install` in the `DrawerLayoutExample/` directory
 
 ## Support
 
-| React Native Version      | react-nativ
-  e-dismiss-keyboard Version |
+| React Native Version      | react-native-drawer-layout Version    |
 |---------------------------|---------------------------------------|
 | >= 11 & < 23              | < 1.0                                 |
 | >= 23                     | >= 1.0                                |
