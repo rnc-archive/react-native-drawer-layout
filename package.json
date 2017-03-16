@@ -9,7 +9,11 @@
     "clear": "rm -rf dist/ && mkdir dist/",
     "lint:staged": "lint-staged",
     "prepublish": "npm run build",
-    "test": "xo"
+    "pretest": "xo",
+    "test": "jest src/"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "lint-staged": {
     "*.js": [
@@ -104,10 +108,13 @@
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
     "lint-staged": "^3.3.1",
     "pre-commit": "^1.2.2",
     "prettier": "^0.19.0",
+    "react": "^15.4.2",
     "react-native": "^0.42.0",
+    "react-test-renderer": "^15.4.2",
     "xo": "^0.17.1"
   }
 }
