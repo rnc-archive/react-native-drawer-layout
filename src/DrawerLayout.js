@@ -221,6 +221,10 @@ export default class DrawerLayout extends Component {
   }
 
   _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
+    if (!dx || !dy) {
+      return false;
+    }
+
     const { drawerPosition } = this.props;
 
     if (this._isLockedClosed() || this._isLockedOpen()) {
