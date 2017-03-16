@@ -37,6 +37,34 @@ exports[`DrawerLayout renders closed correctly 1`] = `
     </Text>
   </View>
   <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    pointerEvents="none"
+    style={
+      Object {
+        "backgroundColor": "#000",
+        "bottom": 0,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "zIndex": 1000,
+      }
+    }
+    testID={undefined}
+  />
+  <View
     style={
       Object {
         "backgroundColor": undefined,
