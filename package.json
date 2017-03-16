@@ -89,7 +89,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "autobind-decorator": "^1.3.2",
     "react-native-dismiss-keyboard": "1.0.0"
   },
   "devDependencies": {
