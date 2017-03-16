@@ -22,6 +22,7 @@ export default class DrawerLayout extends Component {
   static defaultProps = {
     drawerWidth: 0,
     drawerPosition: 'left',
+    useNativeAnimations: false
   };
 
   static positions = {
@@ -46,6 +47,7 @@ export default class DrawerLayout extends Component {
     onDrawerStateChanged: PropTypes.func,
     renderNavigationView: PropTypes.func.isRequired,
     statusBarBackgroundColor: PropTypes.string,
+    useNativeAnimations: PropTypes.bool
   };
 
   constructor(props, context) {
@@ -140,7 +142,8 @@ export default class DrawerLayout extends Component {
       extrapolate: 'clamp',
     });
     const animatedOverlayStyles = { opacity: overlayOpacity };
-
+    const pointerEvents = drawerShown ? 'auto' : 'none';
+    
     return (
       <View
         style={{ flex: 1, backgroundColor: 'transparent' }}
@@ -149,11 +152,9 @@ export default class DrawerLayout extends Component {
         <Animated.View style={styles.main}>
           {this.props.children}
         </Animated.View>
-
-        {drawerShown &&
-          <TouchableWithoutFeedback onPress={this._onOverlayClick}>
-            <Animated.View style={[styles.overlay, animatedOverlayStyles]} />
-          </TouchableWithoutFeedback>}
+        <TouchableWithoutFeedback pointerEvents={pointerEvents} onPress={this._onOverlayClick}>
+          <Animated.View pointerEvents={pointerEvents} style={[styles.overlay, animatedOverlayStyles]} />
+        </TouchableWithoutFeedback>
         <Animated.View
           style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}
         >
@@ -182,6 +183,7 @@ export default class DrawerLayout extends Component {
         toValue: 1,
         bounciness: 0,
         restSpeedThreshold: 0.1,
+        useNativeDriver: this.props.useNativeAnimations,
         ...options,
       })
       .start(() => {
@@ -198,6 +200,7 @@ export default class DrawerLayout extends Component {
         toValue: 0,
         bounciness: 0,
         restSpeedThreshold: 1,
+        useNativeDriver: this.props.useNativeAnimations,
         ...options,
       })
       .start(() => {
