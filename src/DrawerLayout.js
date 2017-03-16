@@ -153,6 +153,7 @@ export default class DrawerLayout extends Component {
 
         <TouchableWithoutFeedback onPress={this._onOverlayClick}>
           <Animated.View
+            pointerEvents={drawerShown ? 'auto' : 'none'}
             style={[drawerShown && styles.overlay, animatedOverlayStyles]}
           />
         </TouchableWithoutFeedback>
