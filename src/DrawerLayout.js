@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
   Animated,
@@ -164,20 +163,20 @@ export default class DrawerLayout extends Component {
     );
   }
 
-  @autobind _onOverlayClick(e) {
+  _onOverlayClick = (e) => {
     e.stopPropagation();
     if (!this._isLockedClosed() && !this._isLockedOpen()) {
       this.closeDrawer();
     }
   }
 
-  _emitStateChanged(newState) {
+  _emitStateChanged = (newState) => {
     if (this.props.onDrawerStateChanged) {
       this.props.onDrawerStateChanged(newState);
     }
   }
 
-  @autobind openDrawer(options = {}) {
+  openDrawer = (options = {}) => {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
         toValue: 1,
@@ -193,7 +192,7 @@ export default class DrawerLayout extends Component {
       });
   }
 
-  @autobind closeDrawer(options = {}) {
+  closeDrawer = (options = {}) => {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
         toValue: 0,
@@ -209,19 +208,19 @@ export default class DrawerLayout extends Component {
       });
   }
 
-  @autobind _handleDrawerOpen() {
+  _handleDrawerOpen = () => {
     if (this.props.onDrawerOpen) {
       this.props.onDrawerOpen();
     }
   }
 
-  @autobind _handleDrawerClose() {
+  _handleDrawerClose = () => {
     if (this.props.onDrawerClose) {
       this.props.onDrawerClose();
     }
   }
 
-  @autobind _shouldSetPanResponder(e, { moveX, dx, dy }) {
+  _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
     const { drawerPosition } = this.props;
 
     if (this._isLockedClosed() || this._isLockedOpen()) {
@@ -270,11 +269,11 @@ export default class DrawerLayout extends Component {
     }
   }
 
-  @autobind _panResponderGrant() {
+  _panResponderGrant = () => {
     this._emitStateChanged(DRAGGING);
   }
 
-  @autobind _panResponderMove(e, { moveX }) {
+  _panResponderMove = (e, { moveX }) => {
     let openValue = this._getOpenValueForX(moveX);
 
     if (this._isClosing) {
@@ -290,7 +289,7 @@ export default class DrawerLayout extends Component {
     this.state.openValue.setValue(openValue);
   }
 
-  @autobind _panResponderRelease(e, { moveX, vx }) {
+  _panResponderRelease = (e, { moveX, vx }) => {
     const { drawerPosition } = this.props;
     const previouslyOpen = this._isClosing;
     const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
@@ -336,17 +335,17 @@ export default class DrawerLayout extends Component {
     }
   }
 
-  _isLockedClosed() {
+  _isLockedClosed = () => {
     return this.props.drawerLockMode === 'locked-closed' &&
       !this.state.drawerShown;
   }
 
-  _isLockedOpen() {
+  _isLockedOpen = () => {
     return this.props.drawerLockMode === 'locked-open' &&
       this.state.drawerShown;
   }
 
-  _getOpenValueForX(x) {
+  _getOpenValueForX = (x) => {
     const { drawerPosition, drawerWidth } = this.props;
 
     if (drawerPosition === 'left') {
