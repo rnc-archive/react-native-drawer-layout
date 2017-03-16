@@ -4,7 +4,6 @@ import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
   Animated,
   Dimensions,
-  InteractionManager,
   PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -52,8 +51,6 @@ export default class DrawerLayout extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.interactionHandle = null;
-
     this.state = {
       openValue: new Animated.Value(0),
       drawerShown: false,
@@ -71,15 +68,6 @@ export default class DrawerLayout extends Component {
 
       if (this.props.keyboardDismissMode === 'on-drag') {
         dismissKeyboard();
-      }
-
-      if (value === 0 || value === 1) {
-        if (this.interactionHandle) {
-          InteractionManager.clearInteractionHandle(this.interactionHandle);
-          this.interactionHandle = undefined;
-        }
-      } else if (!this.interactionHandle) {
-        this.interactionHandle = InteractionManager.createInteractionHandle();
       }
 
       this._lastOpenValue = value;
