@@ -212,7 +212,7 @@ export default class DrawerLayout extends Component {
   }
 
   _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
-    if (!dx || !dy) {
+    if (!dx || !dy || Math.abs(dx) < 3) {
       return false;
     }
 
