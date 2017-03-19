@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 
+const MIN_SWIPE_DISTANCE = 3;
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
 const VX_MAX = 0.1;
@@ -218,7 +219,7 @@ export default class DrawerLayout extends Component {
   };
 
   _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
-    if (!dx || !dy || Math.abs(dx) < 3) {
+    if (!dx || !dy || Math.abs(dx) < MIN_SWIPE_DISTANCE) {
       return false;
     }
 
