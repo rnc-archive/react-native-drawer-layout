@@ -21,7 +21,7 @@ export default class DrawerLayout extends Component {
   static defaultProps = {
     drawerWidth: 0,
     drawerPosition: 'left',
-    useNativeAnimations: false
+    useNativeAnimations: false,
   };
 
   static positions = {
@@ -46,7 +46,7 @@ export default class DrawerLayout extends Component {
     onDrawerStateChanged: PropTypes.func,
     renderNavigationView: PropTypes.func.isRequired,
     statusBarBackgroundColor: PropTypes.string,
-    useNativeAnimations: PropTypes.bool
+    useNativeAnimations: PropTypes.bool,
   };
 
   constructor(props, context) {
@@ -131,7 +131,7 @@ export default class DrawerLayout extends Component {
     });
     const animatedOverlayStyles = { opacity: overlayOpacity };
     const pointerEvents = drawerShown ? 'auto' : 'none';
-    
+
     return (
       <View
         style={{ flex: 1, backgroundColor: 'transparent' }}
@@ -140,8 +140,14 @@ export default class DrawerLayout extends Component {
         <Animated.View style={styles.main}>
           {this.props.children}
         </Animated.View>
-        <TouchableWithoutFeedback pointerEvents={pointerEvents} onPress={this._onOverlayClick}>
-          <Animated.View pointerEvents={pointerEvents} style={[styles.overlay, animatedOverlayStyles]} />
+        <TouchableWithoutFeedback
+          pointerEvents={pointerEvents}
+          onPress={this._onOverlayClick}
+        >
+          <Animated.View
+            pointerEvents={pointerEvents}
+            style={[styles.overlay, animatedOverlayStyles]}
+          />
         </TouchableWithoutFeedback>
         <Animated.View
           style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}
@@ -152,18 +158,18 @@ export default class DrawerLayout extends Component {
     );
   }
 
-  _onOverlayClick = (e) => {
+  _onOverlayClick = e => {
     e.stopPropagation();
     if (!this._isLockedClosed() && !this._isLockedOpen()) {
       this.closeDrawer();
     }
-  }
+  };
 
-  _emitStateChanged = (newState) => {
+  _emitStateChanged = newState => {
     if (this.props.onDrawerStateChanged) {
       this.props.onDrawerStateChanged(newState);
     }
-  }
+  };
 
   openDrawer = (options = {}) => {
     this._emitStateChanged(SETTLING);
@@ -180,7 +186,7 @@ export default class DrawerLayout extends Component {
         }
         this._emitStateChanged(IDLE);
       });
-  }
+  };
 
   closeDrawer = (options = {}) => {
     this._emitStateChanged(SETTLING);
@@ -197,19 +203,19 @@ export default class DrawerLayout extends Component {
         }
         this._emitStateChanged(IDLE);
       });
-  }
+  };
 
   _handleDrawerOpen = () => {
     if (this.props.onDrawerOpen) {
       this.props.onDrawerOpen();
     }
-  }
+  };
 
   _handleDrawerClose = () => {
     if (this.props.onDrawerClose) {
       this.props.onDrawerClose();
     }
-  }
+  };
 
   _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
     if (!dx || !dy || Math.abs(dx) < 3) {
@@ -262,11 +268,11 @@ export default class DrawerLayout extends Component {
         return false;
       }
     }
-  }
+  };
 
   _panResponderGrant = () => {
     this._emitStateChanged(DRAGGING);
-  }
+  };
 
   _panResponderMove = (e, { moveX }) => {
     let openValue = this._getOpenValueForX(moveX);
@@ -282,7 +288,7 @@ export default class DrawerLayout extends Component {
     }
 
     this.state.openValue.setValue(openValue);
-  }
+  };
 
   _panResponderRelease = (e, { moveX, vx }) => {
     const { drawerPosition } = this.props;
@@ -328,19 +334,19 @@ export default class DrawerLayout extends Component {
         this.closeDrawer();
       }
     }
-  }
+  };
 
   _isLockedClosed = () => {
     return this.props.drawerLockMode === 'locked-closed' &&
       !this.state.drawerShown;
-  }
+  };
 
   _isLockedOpen = () => {
     return this.props.drawerLockMode === 'locked-open' &&
       this.state.drawerShown;
-  }
+  };
 
-  _getOpenValueForX = (x) => {
+  _getOpenValueForX = x => {
     const { drawerPosition, drawerWidth } = this.props;
 
     if (drawerPosition === 'left') {
@@ -348,7 +354,7 @@ export default class DrawerLayout extends Component {
     } else if (drawerPosition === 'right') {
       return (DEVICE_WIDTH - x) / drawerWidth;
     }
-  }
+  };
 }
 
 const styles = StyleSheet.create({
