@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { Component } from 'react';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
   Animated,
@@ -18,7 +19,52 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
+export type PropType = {
+  children: any,
+  drawerBackgroundColor?: string,
+  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open',
+  drawerPosition: 'left' | 'right',
+  drawerWidth: number,
+  keyboardDismissMode?: 'none' | 'on-drag',
+  onDrawerClose?: Function,
+  onDrawerOpen?: Function,
+  onDrawerSlide?: Function,
+  onDrawerStateChanged?: Function,
+  renderNavigationView: () => any,
+  statusBarBackgroundColor?: string,
+  useNativeAnimations?: boolean,
+};
+
+export type StateType = {
+  drawerShown: boolean,
+  openValue: any,
+};
+
+export type EventType = {
+  stopPropagation: Function,
+};
+
+export type PanResponderEventType = {
+  dx: number,
+  dy: number,
+  moveX: number,
+  moveY: number,
+  vx: number,
+  vy: number,
+};
+
+export type DrawerMovementOptionType = {
+  velocity?: number,
+};
+
 export default class DrawerLayout extends Component {
+  props: PropType;
+  state: StateType;
+  _lastOpenValue: number;
+  _panResponder: any;
+  _isClosing: boolean;
+  _closingAnchorValue: number;
+
   static defaultProps = {
     drawerWidth: 0,
     drawerPosition: 'left',
@@ -30,27 +76,7 @@ export default class DrawerLayout extends Component {
     Right: 'right',
   };
 
-  static propTypes = {
-    children: PropTypes.node,
-    drawerBackgroundColor: PropTypes.string,
-    drawerLockMode: PropTypes.oneOf([
-      'unlocked',
-      'locked-closed',
-      'locked-open',
-    ]),
-    drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
-    drawerWidth: PropTypes.number.isRequired,
-    keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
-    onDrawerClose: PropTypes.func,
-    onDrawerOpen: PropTypes.func,
-    onDrawerSlide: PropTypes.func,
-    onDrawerStateChanged: PropTypes.func,
-    renderNavigationView: PropTypes.func.isRequired,
-    statusBarBackgroundColor: PropTypes.string,
-    useNativeAnimations: PropTypes.bool,
-  };
-
-  constructor(props, context) {
+  constructor(props: PropType, context: any) {
     super(props, context);
 
     this.state = {
@@ -102,9 +128,10 @@ export default class DrawerLayout extends Component {
 
     const dynamicDrawerStyles = {
       backgroundColor: drawerBackgroundColor,
+      width: drawerWidth,
+      left: drawerPosition === 'left' ? 0 : null,
+      right: drawerPosition === 'right' ? 0 : null,
     };
-    dynamicDrawerStyles[drawerPosition] = 0;
-    dynamicDrawerStyles.width = drawerWidth;
 
     /* Drawer styles */
     let outputRange;
@@ -159,20 +186,20 @@ export default class DrawerLayout extends Component {
     );
   }
 
-  _onOverlayClick = e => {
+  _onOverlayClick = (e: EventType) => {
     e.stopPropagation();
     if (!this._isLockedClosed() && !this._isLockedOpen()) {
       this.closeDrawer();
     }
   };
 
-  _emitStateChanged = newState => {
+  _emitStateChanged = (newState: string) => {
     if (this.props.onDrawerStateChanged) {
       this.props.onDrawerStateChanged(newState);
     }
   };
 
-  openDrawer = (options = {}) => {
+  openDrawer = (options: DrawerMovementOptionType = {}) => {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
         toValue: 1,
@@ -189,7 +216,7 @@ export default class DrawerLayout extends Component {
       });
   };
 
-  closeDrawer = (options = {}) => {
+  closeDrawer = (options: DrawerMovementOptionType = {}) => {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {
         toValue: 0,
@@ -218,7 +245,10 @@ export default class DrawerLayout extends Component {
     }
   };
 
-  _shouldSetPanResponder = (e, { moveX, dx, dy }) => {
+  _shouldSetPanResponder = (
+    e: EventType,
+    { moveX, dx, dy }: PanResponderEventType,
+  ) => {
     if (!dx || !dy || Math.abs(dx) < MIN_SWIPE_DISTANCE) {
       return false;
     }
@@ -275,7 +305,7 @@ export default class DrawerLayout extends Component {
     this._emitStateChanged(DRAGGING);
   };
 
-  _panResponderMove = (e, { moveX }) => {
+  _panResponderMove = (e: EventType, { moveX }: PanResponderEventType) => {
     let openValue = this._getOpenValueForX(moveX);
 
     if (this._isClosing) {
@@ -291,7 +321,10 @@ export default class DrawerLayout extends Component {
     this.state.openValue.setValue(openValue);
   };
 
-  _panResponderRelease = (e, { moveX, vx }) => {
+  _panResponderRelease = (
+    e: EventType,
+    { moveX, vx }: PanResponderEventType,
+  ) => {
     const { drawerPosition } = this.props;
     const previouslyOpen = this._isClosing;
     const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
@@ -347,15 +380,16 @@ export default class DrawerLayout extends Component {
       this.state.drawerShown;
   };
 
-  _getOpenValueForX = x => {
+  _getOpenValueForX(x: number): number {
     const { drawerPosition, drawerWidth } = this.props;
 
     if (drawerPosition === 'left') {
       return x / drawerWidth;
-    } else if (drawerPosition === 'right') {
-      return (DEVICE_WIDTH - x) / drawerWidth;
     }
-  };
+
+    // position === 'right'
+    return (DEVICE_WIDTH - x) / drawerWidth;
+  }
 }
 
 const styles = StyleSheet.create({
