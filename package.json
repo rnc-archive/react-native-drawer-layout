@@ -9,7 +9,7 @@
     "clear": "rm -rf dist/ && mkdir dist/",
     "lint:staged": "lint-staged",
     "prepublish": "npm run build",
-    "test": "xo"
+    "test": "xo && flow --show-all-errors"
   },
   "lint-staged": {
     "*.js": [
@@ -91,6 +91,9 @@
   "dependencies": {
     "react-native-dismiss-keyboard": "1.0.0"
   },
+  "peerDependencies": {
+    "react-native": "*"
+  },
   "devDependencies": {
     "babel-cli": "^6.0.0",
     "babel-eslint": "^7.1.1",
@@ -104,10 +107,10 @@
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.0",
+    "flow-bin": "^0.42.0",
     "lint-staged": "^3.3.1",
     "pre-commit": "^1.2.2",
     "prettier": "^0.19.0",
-    "react-native": "^0.42.0",
     "xo": "^0.17.1"
   }
 }
