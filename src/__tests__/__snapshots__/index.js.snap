@@ -1,5 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
 exports[`DrawerLayout renders closed correctly 1`] = `
 <View
   onMoveShouldSetResponder={[Function]}
@@ -19,20 +17,17 @@ exports[`DrawerLayout renders closed correctly 1`] = `
       "backgroundColor": "transparent",
       "flex": 1,
     }
-  }
->
+  }>
   <View
     style={
       Object {
         "flex": 1,
       }
-    }
-  >
+    }>
     <Text
       accessible={true}
       allowFontScaling={true}
-      ellipsizeMode="tail"
-    >
+      ellipsizeMode="tail">
       Content!
     </Text>
   </View>
@@ -62,8 +57,7 @@ exports[`DrawerLayout renders closed correctly 1`] = `
         "zIndex": 1000,
       }
     }
-    testID={undefined}
-  />
+    testID={undefined} />
   <View
     style={
       Object {
@@ -80,13 +74,11 @@ exports[`DrawerLayout renders closed correctly 1`] = `
         "width": 300,
         "zIndex": 1001,
       }
-    }
-  >
+    }>
     <Text
       accessible={true}
       allowFontScaling={true}
-      ellipsizeMode="tail"
-    >
+      ellipsizeMode="tail">
       Drawer
     </Text>
   </View>
