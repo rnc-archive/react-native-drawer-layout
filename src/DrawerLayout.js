@@ -367,6 +367,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
+    zIndex: 0,
   },
   overlay: {
     backgroundColor: '#000',
