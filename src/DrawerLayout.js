@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  I18nManager,
 } from 'react-native';
 
 const MIN_SWIPE_DISTANCE = 3;
@@ -64,6 +65,7 @@ export default class DrawerLayout extends Component {
   _panResponder: any;
   _isClosing: boolean;
   _closingAnchorValue: number;
+  _isRTL: boolean;
 
   static defaultProps = {
     drawerWidth: 0,
@@ -87,6 +89,10 @@ export default class DrawerLayout extends Component {
 
   componentWillMount() {
     const { openValue } = this.state;
+
+    this._isRTL = I18nManager.isRTL;
+
+    console.log(`Is RTL ${this._isRTL ? 'yes' : 'no'}`);
 
     openValue.addListener(({ value }) => {
       const drawerShown = value > 0;
@@ -137,9 +143,9 @@ export default class DrawerLayout extends Component {
     let outputRange;
 
     if (drawerPosition === 'left') {
-      outputRange = [-drawerWidth, 0];
+      outputRange = this._isRTL ? [drawerWidth, 0] : [-drawerWidth, 0];
     } else {
-      outputRange = [drawerWidth, 0];
+      outputRange = this._isRTL ? [-drawerWidth, 0] : [drawerWidth, 0];
     }
 
     const drawerTranslateX = openValue.interpolate({
