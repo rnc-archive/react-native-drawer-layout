@@ -92,8 +92,6 @@ export default class DrawerLayout extends Component {
 
     this._isRTL = I18nManager.isRTL;
 
-    console.log(`Is RTL ${this._isRTL ? 'yes' : 'no'}`);
-
     openValue.addListener(({ value }) => {
       const drawerShown = value > 0;
       if (drawerShown !== this.state.drawerShown) {
