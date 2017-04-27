@@ -145,9 +145,13 @@ export default class DrawerLayout extends Component {
     let outputRange;
 
     if (drawerPosition === 'left') {
-      outputRange = this._isRTL ? [drawerWidth, 0] : [-drawerWidth, 0];
+      outputRange = this._isRTL
+        ? [-DEVICE_WIDTH, -DEVICE_WIDTH + drawerWidth]
+        : [-drawerWidth, 0];
     } else {
-      outputRange = this._isRTL ? [-drawerWidth, 0] : [drawerWidth, 0];
+      outputRange = this._isRTL
+        ? [DEVICE_WIDTH + drawerWidth, DEVICE_WIDTH - drawerWidth]
+        : [drawerWidth, 0];
     }
 
     const drawerTranslateX = openValue.interpolate({
