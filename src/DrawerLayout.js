@@ -39,7 +39,6 @@ export type StateType = {
   drawerShown: boolean,
   openValue: any,
   windowWidth: number,
-  threshold: number,
 };
 
 export type EventType = {
@@ -95,7 +94,6 @@ export default class DrawerLayout extends Component {
       drawerShown: false,
       openValue: new Animated.Value(0),
       windowWidth,
-      threshold: windowWidth / 2,
     };
   }
 
@@ -140,7 +138,6 @@ export default class DrawerLayout extends Component {
   _handleOrientationChange = (dimension: DimensionsEventType) => {
     this.setState({
       windowWidth: dimension.window.width,
-      threshold: dimension.window.width / 2,
     });
   };
 
@@ -363,7 +360,7 @@ export default class DrawerLayout extends Component {
     { moveX, vx }: PanResponderEventType,
   ) => {
     const { drawerPosition } = this.props;
-    const { threshold } = this.state;
+    const threshold = this.state.windowWidth / 2;
     const previouslyOpen = this._isClosing;
     const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 
