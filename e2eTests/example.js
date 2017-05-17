@@ -114,10 +114,19 @@ var DrawerLayoutExample = React.createClass({
           >
             <Text>Open drawer</Text>
           </TouchableHighlight>
+          {I18nManager.isRTL ? <Text>RTL ON</Text> : <Text>RTL OFF</Text>}
           <TouchableHighlight
-            onPress={() => I18nManager.forceRTL(!I18nManager.isRTL)}
+            testID="setRTL"
+            onPress={() => I18nManager.forceRTL(true)}
           >
-            <Text>Toggle RTL: {I18nManager.isRTL ? 'yes' : 'no'}</Text>
+            <Text>Set RTL</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            testID="unsetRTL"
+            onPress={() => I18nManager.forceRTL(false)}
+          >
+            <Text>Unset RTL</Text>
           </TouchableHighlight>
           <TextInput style={styles.inputField} />
         </ScrollView>
