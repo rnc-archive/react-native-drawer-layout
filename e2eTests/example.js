@@ -67,7 +67,10 @@ var DrawerLayoutExample = React.createClass({
           value={drawerLockMode}
           onValueChange={value => this.setState({ drawerLockMode: value })}
         />
-        <TouchableHighlight onPress={() => this.drawer.closeDrawer()}>
+        <TouchableHighlight
+          testID="closeButton"
+          onPress={() => this.drawer.closeDrawer()}
+        >
           <Text>Close drawer</Text>
         </TouchableHighlight>
       </View>
