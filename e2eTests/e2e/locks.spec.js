@@ -1,4 +1,4 @@
-describe('ReactNativeDrawerLayout', () => {
+describe('Lock', () => {
   beforeEach(async () => {
     await device.reloadReactNative();
   });
