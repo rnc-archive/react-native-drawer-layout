@@ -57,6 +57,7 @@ var DrawerLayoutExample = React.createClass({
   getInitialState() {
     return {
       drawerLockMode: 'unlocked',
+      orientation: DrawerLayout.positions.Left,
     };
   },
 
@@ -81,6 +82,7 @@ var DrawerLayoutExample = React.createClass({
 
     return (
       <DrawerLayout
+        drawerPosition={this.state.orientation}
         onDrawerSlide={e =>
           this.setState({ drawerSlideOutput: JSON.stringify(e.nativeEvent) })}
         onDrawerStateChanged={e =>
@@ -100,6 +102,21 @@ var DrawerLayoutExample = React.createClass({
           {/* Swipe Targets for e2e tests*/}
           <View testID="swipeTargetLeft" style={styles.swipeTargetLeft} />
           <View testID="swipeTargetRight" style={styles.swipeTargetRight} />
+
+          <Switch
+            testID="orientation"
+            onValueChange={value => {
+              this.setState({
+                orientation: value
+                  ? DrawerLayout.positions.Right
+                  : DrawerLayout.positions.Left,
+              });
+            }}
+            value={this.state.orientation === DrawerLayout.positions.Right}
+          />
+          <Text style={styles.spacedLeft}>
+            Orientation: {this.state.orientation}{' '}
+          </Text>
 
           <Text testID="mainContent" style={styles.welcome}>Content!</Text>
           <DrawerLockModeSwitches
