@@ -10,6 +10,7 @@
     "lint:staged": "lint-staged",
     "prepublish": "npm run build",
     "test": "flow --show-all-errors",
+    "test:e2e": "cd e2eTests && detox build && detox test",
     "format": "prettier --write --single-quote --trailing-comma all --tab-width 4 src/**/*.js"
   },
   "lint-staged": {
