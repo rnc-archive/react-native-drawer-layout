@@ -202,6 +202,7 @@ export default class DrawerLayout extends Component {
           {this.props.children}
         </Animated.View>
         <TouchableWithoutFeedback
+          testID="RNDL/overlay"
           pointerEvents={pointerEvents}
           onPress={this._onOverlayClick}
         >
