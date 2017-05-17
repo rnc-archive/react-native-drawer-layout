@@ -21,6 +21,7 @@ var DrawerLockModeSwitches = React.createClass({
       <ScrollView style={styles.drawerLock}>
         <View style={[styles.container, styles.split]}>
           <Switch
+            testID="toggleUnlocked"
             onValueChange={value =>
               value ? onValueChange('unlocked') : onValueChange('unlocked')}
             value={value === 'unlocked'}
@@ -29,6 +30,7 @@ var DrawerLockModeSwitches = React.createClass({
         </View>
         <View style={[styles.container, styles.split]}>
           <Switch
+            testID="toggleLockedClosed"
             onValueChange={value =>
               value
                 ? onValueChange('locked-closed')
@@ -39,6 +41,7 @@ var DrawerLockModeSwitches = React.createClass({
         </View>
         <View style={[styles.container, styles.split]}>
           <Switch
+            testID="toggleLockedOpen"
             onValueChange={value =>
               value ? onValueChange('locked-open') : onValueChange('unlocked')}
             value={value === 'locked-open'}
@@ -92,13 +95,18 @@ var DrawerLayoutExample = React.createClass({
         statusBarBackgroundColor="blue"
         renderNavigationView={() => navigationView}
       >
-        <ScrollView containerStyle={styles.container}>
+        <ScrollView testID="main" containerStyle={styles.container}>
+
+          {/* Swipe Targets for e2e tests*/}
+          <View testID="swipeTargetLeft" style={styles.swipeTargetLeft} />
+          <View testID="swipeTargetRight" style={styles.swipeTargetRight} />
+
           <Text testID="mainContent" style={styles.welcome}>Content!</Text>
           <DrawerLockModeSwitches
             value={drawerLockMode}
             onValueChange={value => this.setState({ drawerLockMode: value })}
           />
-          <Text>{this.state.drawerStateChangedOutput}</Text>
+          <Text testID="ponyfoo">{this.state.drawerStateChangedOutput}</Text>
           <Text>{this.state.drawerSlideOutput}</Text>
           <TouchableHighlight
             testID="openButton"
@@ -142,6 +150,22 @@ var styles = StyleSheet.create({
   drawerLock: {
     height: 200,
     paddingTop: 50,
+  },
+  swipeTargetLeft: {
+    backgroundColor: 'red',
+    height: 50,
+    width: 100,
+    position: 'absolute',
+    top: 50,
+    left: 0,
+  },
+  swipeTargetRight: {
+    backgroundColor: 'blue',
+    height: 50,
+    width: 100,
+    position: 'absolute',
+    top: 50,
+    right: 0,
   },
 });
 

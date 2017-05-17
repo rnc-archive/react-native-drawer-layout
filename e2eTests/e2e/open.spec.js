@@ -8,7 +8,7 @@ describe('ReactNativeDrawerLayout', () => {
     await expect(element(by.id('navigationView'))).toBeNotVisible();
   });
 
-  describe('Programmatic Open', () => {
+  describe('Programmatic', () => {
     it('should open on button press', async () => {
       await element(by.id('openButton')).tap();
 
