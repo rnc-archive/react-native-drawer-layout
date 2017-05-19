@@ -282,7 +282,7 @@ export default class DrawerLayout extends Component {
 
   _shouldSetPanResponder = (
     e: EventType,
-    { moveX, dx, dy }: PanResponderEventType,
+    { moveX, dx, dy }: PanResponderEventType
   ) => {
     if (!dx || !dy || Math.abs(dx) < MIN_SWIPE_DISTANCE) {
       return false;
@@ -358,7 +358,7 @@ export default class DrawerLayout extends Component {
 
   _panResponderRelease = (
     e: EventType,
-    { moveX, vx }: PanResponderEventType,
+    { moveX, vx }: PanResponderEventType
   ) => {
     const { drawerPosition } = this.props;
     const threshold = this.state.windowWidth / 2;

@@ -9,7 +9,7 @@ describe('Lock', () => {
     describe('locked-open', () => {
       it('should not close an open drawer on overlay tap', async () => {
         await element(
-          by.id('toggleLockedOpen').withAncestor(by.id('main')),
+          by.id('toggleLockedOpen').withAncestor(by.id('main'))
         ).tap();
 
         await element(by.id('openButton')).tap();
