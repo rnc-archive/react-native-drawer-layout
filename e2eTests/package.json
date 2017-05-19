@@ -13,6 +13,12 @@
         "build": "xcodebuild -project ios/e2eTests.xcodeproj -scheme e2eTests -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
         "name": "iPhone 7"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/e2eTests.app",
+        "build": "xcodebuild -project ios/e2eTests.xcodeproj -scheme e2eTests -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
       }
     }
   },
