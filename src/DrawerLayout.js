@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 
 const MIN_SWIPE_DISTANCE = 3;
+const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
+const THRESHOLD = DEVICE_WIDTH / 2;
 const VX_MAX = 0.1;
 
 const IDLE = 'Idle';
@@ -38,7 +40,6 @@ export type StateType = {
   accessibilityViewIsModal: boolean,
   drawerShown: boolean,
   openValue: any,
-  windowWidth: number,
 };
 
 export type EventType = {
@@ -58,12 +59,6 @@ export type DrawerMovementOptionType = {
   velocity?: number,
 };
 
-export type DimensionsEventType = {
-  window: {
-    width: number,
-  },
-};
-
 export default class DrawerLayout extends Component {
   props: PropType;
   state: StateType;
@@ -71,7 +66,6 @@ export default class DrawerLayout extends Component {
   _panResponder: any;
   _isClosing: boolean;
   _closingAnchorValue: number;
-  _isRTL: boolean;
 
   static defaultProps = {
     drawerWidth: 0,
@@ -87,20 +81,23 @@ export default class DrawerLayout extends Component {
   constructor(props: PropType, context: any) {
     super(props, context);
 
-    const windowWidth = Dimensions.get('window').width;
-
     this.state = {
       accessibilityViewIsModal: false,
       drawerShown: false,
       openValue: new Animated.Value(0),
-      windowWidth,
     };
+  }
+
+  getDrawerPosition() {
+    const { drawerPosition } = this.props;
+    const rtl = I18nManager.isRTL;
+    return rtl
+      ? drawerPosition === 'left' ? 'right' : 'left' // invert it
+      : drawerPosition;
   }
 
   componentWillMount() {
     const { openValue } = this.state;
-
-    this._isRTL = I18nManager.isRTL;
 
     openValue.addListener(({ value }) => {
       const drawerShown = value > 0;
@@ -127,34 +124,17 @@ export default class DrawerLayout extends Component {
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: () => {},
     });
-
-    Dimensions.addEventListener('change', this._handleOrientationChange);
   }
-
-  componentWillUnmount() {
-    Dimensions.removeEventListener('change', this._handleOrientationChange);
-  }
-
-  _handleOrientationChange = (dimension: DimensionsEventType) => {
-    this.setState({
-      windowWidth: dimension.window.width,
-    });
-  };
 
   render() {
-    const {
-      accessibilityViewIsModal,
-      drawerShown,
-      openValue,
-      windowWidth,
-    } = this.state;
+    const { accessibilityViewIsModal, drawerShown, openValue } = this.state;
 
-    const {
-      drawerBackgroundColor,
-      drawerPosition,
-      drawerWidth,
-    } = this.props;
+    const { drawerBackgroundColor, drawerWidth, drawerPosition } = this.props;
 
+    /**
+    * We need to use the "original" drawer position here
+    * as RTL turns position left and right on its own
+    **/
     const dynamicDrawerStyles = {
       backgroundColor: drawerBackgroundColor,
       width: drawerWidth,
@@ -165,14 +145,10 @@ export default class DrawerLayout extends Component {
     /* Drawer styles */
     let outputRange;
 
-    if (drawerPosition === 'left') {
-      outputRange = this._isRTL
-        ? [-windowWidth, -windowWidth + drawerWidth]
-        : [-drawerWidth, 0];
+    if (this.getDrawerPosition() === 'left') {
+      outputRange = [-drawerWidth, 0];
     } else {
-      outputRange = this._isRTL
-        ? [windowWidth + drawerWidth, windowWidth - drawerWidth]
-        : [drawerWidth, 0];
+      outputRange = [drawerWidth, 0];
     }
 
     const drawerTranslateX = openValue.interpolate({
@@ -192,6 +168,8 @@ export default class DrawerLayout extends Component {
     });
     const animatedOverlayStyles = { opacity: overlayOpacity };
     const pointerEvents = drawerShown ? 'auto' : 'none';
+
+    console.log(drawerTranslateX);
 
     return (
       <View
@@ -287,15 +265,13 @@ export default class DrawerLayout extends Component {
       return false;
     }
 
-    const { drawerPosition } = this.props;
-    const { windowWidth } = this.state;
-
     if (this._isLockedClosed() || this._isLockedOpen()) {
       return false;
     }
 
-    if (drawerPosition === 'left') {
-      const overlayArea = this.props.drawerWidth;
+    if (this.getDrawerPosition() === 'left') {
+      const overlayArea = DEVICE_WIDTH -
+        (DEVICE_WIDTH - this.props.drawerWidth);
 
       if (this._lastOpenValue === 1) {
         if (
@@ -314,7 +290,7 @@ export default class DrawerLayout extends Component {
         return false;
       }
     } else {
-      const overlayArea = windowWidth - this.props.drawerWidth;
+      const overlayArea = DEVICE_WIDTH - this.props.drawerWidth;
 
       if (this._lastOpenValue === 1) {
         if (
@@ -325,7 +301,7 @@ export default class DrawerLayout extends Component {
           return true;
         }
       } else {
-        if (moveX >= windowWidth - 35 && dx < 0) {
+        if (moveX >= DEVICE_WIDTH - 35 && dx < 0) {
           this._isClosing = false;
           return true;
         }
@@ -359,20 +335,18 @@ export default class DrawerLayout extends Component {
     e: EventType,
     { moveX, vx }: PanResponderEventType,
   ) => {
-    const { drawerPosition } = this.props;
-    const threshold = this.state.windowWidth / 2;
     const previouslyOpen = this._isClosing;
     const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 
-    if (drawerPosition === 'left') {
+    if (this.getDrawerPosition() === 'left') {
       if (
-        (vx > 0 && moveX > threshold) ||
+        (vx > 0 && moveX > THRESHOLD) ||
         vx >= VX_MAX ||
-        (isWithinVelocityThreshold && previouslyOpen && moveX > threshold)
+        (isWithinVelocityThreshold && previouslyOpen && moveX > THRESHOLD)
       ) {
         this.openDrawer({ velocity: vx });
       } else if (
-        (vx < 0 && moveX < threshold) ||
+        (vx < 0 && moveX < THRESHOLD) ||
         vx < -VX_MAX ||
         (isWithinVelocityThreshold && !previouslyOpen)
       ) {
@@ -382,17 +356,15 @@ export default class DrawerLayout extends Component {
       } else {
         this.closeDrawer();
       }
-    }
-
-    if (drawerPosition === 'right') {
+    } else {
       if (
-        (vx < 0 && moveX < threshold) ||
+        (vx < 0 && moveX < THRESHOLD) ||
         vx <= -VX_MAX ||
-        (isWithinVelocityThreshold && previouslyOpen && moveX < threshold)
+        (isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD)
       ) {
         this.openDrawer({ velocity: (-1) * vx });
       } else if (
-        (vx > 0 && moveX > threshold) ||
+        (vx > 0 && moveX > THRESHOLD) ||
         vx > VX_MAX ||
         (isWithinVelocityThreshold && !previouslyOpen)
       ) {
@@ -416,14 +388,14 @@ export default class DrawerLayout extends Component {
   };
 
   _getOpenValueForX(x: number): number {
-    const { drawerPosition, drawerWidth } = this.props;
+    const { drawerWidth } = this.props;
 
-    if (drawerPosition === 'left') {
+    if (this.getDrawerPosition() === 'left') {
       return x / drawerWidth;
     }
 
     // position === 'right'
-    return (this.state.windowWidth - x) / drawerWidth;
+    return (DEVICE_WIDTH - x) / drawerWidth;
   }
 }
 
