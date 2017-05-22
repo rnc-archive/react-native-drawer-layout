@@ -93,6 +93,7 @@
     "react-native-dismiss-keyboard": "1.0.0"
   },
   "peerDependencies": {
+    "react": "*",
     "react-native": "*"
   },
   "devDependencies": {
