@@ -169,7 +169,6 @@ export default class DrawerLayout extends Component {
     const animatedOverlayStyles = { opacity: overlayOpacity };
     const pointerEvents = drawerShown ? 'auto' : 'none';
 
-    console.log(drawerTranslateX);
 
     return (
       <View
