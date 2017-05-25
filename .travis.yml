@@ -26,5 +26,4 @@ script:
 - npm install
 - cd e2eTests
 - npm install
-- detox build --configuration ios.sim.release
-- detox test --configuration ios.sim.release --cleanup
+- npm run test:ci

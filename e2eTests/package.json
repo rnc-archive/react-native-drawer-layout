@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "detox build --configuration ios.sim.debug && detox test --configuration ios.sim.debug --cleanup",
+    "test:ci": "detox build --configuration ios.sim.release && detox test --configuration ios.sim.release --cleanup"
   },
   "detox": {
     "configurations": {
@@ -28,14 +29,8 @@
     "react-native-drawer-layout": "file:../"
   },
   "devDependencies": {
-    "babel-jest": "20.0.3",
     "babel-preset-react-native": "1.9.2",
-    "detox": "^5.0.8",
-    "jest": "20.0.3",
-    "mocha": "^3.4.1",
-    "react-test-renderer": "16.0.0-alpha.6"
-  },
-  "jest": {
-    "preset": "react-native"
+    "detox": "^5.0.9",
+    "mocha": "^3.4.1"
   }
 }
