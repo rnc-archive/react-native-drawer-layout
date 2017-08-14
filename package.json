@@ -90,7 +90,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "react-native": "^0.47.1",
+    "react-native": "0.44.3",
     "react-native-dismiss-keyboard": "1.0.0"
   },
   "peerDependencies": {
