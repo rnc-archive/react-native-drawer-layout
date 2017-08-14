@@ -34,6 +34,7 @@ export type PropType = {
   renderNavigationView: () => any,
   statusBarBackgroundColor?: string,
   useNativeAnimations?: boolean,
+  maxOverlayOpacity: number,
 };
 
 export type StateType = {
@@ -71,6 +72,7 @@ export default class DrawerLayout extends Component {
     drawerWidth: 0,
     drawerPosition: 'left',
     useNativeAnimations: false,
+    maxOverlayOpacity: 0.7,
   };
 
   static positions = {
@@ -163,7 +165,7 @@ export default class DrawerLayout extends Component {
     /* Overlay styles */
     const overlayOpacity = openValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 0.7],
+      outputRange: [0, this.props.maxOverlayOpacity],
       extrapolate: 'clamp',
     });
     const animatedOverlayStyles = { opacity: overlayOpacity };
