@@ -89,9 +89,6 @@
     "menu"
   ],
   "license": "MIT",
-  "dependencies": {
-    "react-native-dismiss-keyboard": "1.0.0"
-  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
@@ -103,6 +100,8 @@
     "flow-bin": "^0.42.0",
     "lint-staged": "^3.3.1",
     "pre-commit": "^1.2.2",
-    "prettier": "^0.19.0"
+    "prettier": "^0.19.0",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.48.1"
   }
 }
