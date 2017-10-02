@@ -1,6 +1,6 @@
 ## react-native-drawer-layout [![CircleCI](https://circleci.com/gh/react-native-community/react-native-drawer-layout/tree/master.svg?style=svg)](https://circleci.com/gh/react-native-community/react-native-drawer-layout/tree/master) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-A platform-agnostic drawer layout. It uses a pure JavaScript implementation on every platform to ensure consistency. We try to keep it up to date with the implementation of [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) and add features we see as necessary too.
+A platform-agnostic drawer layout. It uses a pure JavaScript implementation on every platform to ensure consistency. We try to keep it up to date with the implementation of [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) and add features we consider necessary as well.
 
 ## Add it to your project
 
@@ -22,7 +22,7 @@ This includes the differences between our implementation and the official one [D
 - [Normal usage](https://github.com/DanielMSchmidt/DrawerLayoutExample)
 - [Heavy Load](https://github.com/DanielMSchmidt/DrawerLayoutHeavyLoadExample)
 
-To run the demo please run `npm install` in the `DrawerLayoutExample/` directory and start the demo up from there like any other React Native application.
+To run the demo, please run `npm install` in the `DrawerLayoutExample/` directory and start the demo up from there like any other React Native application.
 
 ## Support
 
