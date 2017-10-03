@@ -179,6 +179,7 @@ export default class DrawerLayout extends Component {
           {this.props.children}
         </Animated.View>
         <TouchableWithoutFeedback
+          testID="RNDL/overlay"
           pointerEvents={pointerEvents}
           onPress={this._onOverlayClick}
         >
@@ -258,7 +259,7 @@ export default class DrawerLayout extends Component {
 
   _shouldSetPanResponder = (
     e: EventType,
-    { moveX, dx, dy }: PanResponderEventType,
+    { moveX, dx, dy }: PanResponderEventType
   ) => {
     if (!dx || !dy || Math.abs(dx) < MIN_SWIPE_DISTANCE) {
       return false;
@@ -332,7 +333,7 @@ export default class DrawerLayout extends Component {
 
   _panResponderRelease = (
     e: EventType,
-    { moveX, vx }: PanResponderEventType,
+    { moveX, vx }: PanResponderEventType
   ) => {
     const previouslyOpen = this._isClosing;
     const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;

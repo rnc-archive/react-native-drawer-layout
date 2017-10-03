@@ -10,11 +10,12 @@
     "lint:staged": "lint-staged",
     "prepublish": "npm run build",
     "test": "flow --show-all-errors",
-    "format": "prettier --write --single-quote --trailing-comma all --tab-width 4 src/**/*.js"
+    "test:e2e": "cd e2eTests && detox build && detox test",
+    "format": "prettier --write --single-quote --trailing-comma es5 --tab-width 4 src/**/*.js"
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write --single-quote --trailing-comma all --tabWidth 4",
+      "prettier --write --single-quote --trailing-comma es5 --tabWidth 4",
       "git add"
     ]
   },

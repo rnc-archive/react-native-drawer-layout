@@ -1,0 +1,36 @@
+{
+  "name": "e2eTests",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "detox build --configuration ios.sim.debug && detox test --configuration ios.sim.debug --cleanup",
+    "test:ci": "detox build --configuration ios.sim.release && detox test --configuration ios.sim.release --cleanup"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/e2eTests.app",
+        "build": "xcodebuild -project ios/e2eTests.xcodeproj -scheme e2eTests -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/e2eTests.app",
+        "build": "xcodebuild -project ios/e2eTests.xcodeproj -scheme e2eTests -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      }
+    }
+  },
+  "dependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0",
+    "react-native-drawer-layout": "file:../"
+  },
+  "devDependencies": {
+    "babel-preset-react-native": "1.9.2",
+    "detox": "^5.0.9",
+    "mocha": "^3.4.1"
+  }
+}
