@@ -29,7 +29,8 @@ To run the demo, please run `npm install` in the `DrawerLayoutExample/` director
 | React Native Version      | react-native-drawer-layout Version    |
 |---------------------------|---------------------------------------|
 | >= 11 & < 23              | < 1.0                                 |
-| >= 23                     | >= 1.0                                |
+| >= 23                     | >= 1.0  && < 2.0                      |
+| >= 35                     | >= 2.0                                |
 
 If you experience any further restrictions with other versions, please let us know.
 
