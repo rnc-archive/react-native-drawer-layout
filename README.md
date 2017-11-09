@@ -41,6 +41,12 @@ If you experience any further restrictions with other versions, please let us kn
 
 ## Release Notes
 
+### 2.0
+
+#### Breaking changes
+
+- This version may only be used with React Native >= 0.35. For discussion see [#44](https://github.com/react-native-community/react-native-drawer-layout/pull/44)
+
 ### 1.0
 
 #### Breaking changes:
