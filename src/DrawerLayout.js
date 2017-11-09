@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import dismissKeyboard from 'react-native-dismiss-keyboard';
 import {
   Animated,
   Dimensions,
+  Keyboard,
   PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -107,7 +107,7 @@ export default class DrawerLayout extends Component {
       }
 
       if (this.props.keyboardDismissMode === 'on-drag') {
-        dismissKeyboard();
+        Keyboard.dismiss();
       }
 
       this._lastOpenValue = value;
@@ -168,7 +168,6 @@ export default class DrawerLayout extends Component {
     });
     const animatedOverlayStyles = { opacity: overlayOpacity };
     const pointerEvents = drawerShown ? 'auto' : 'none';
-
 
     return (
       <View
