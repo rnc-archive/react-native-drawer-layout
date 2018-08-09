@@ -196,6 +196,7 @@ export default class DrawerLayout extends Component {
                         styles.drawer,
                         dynamicDrawerStyles,
                         animatedDrawerStyles,
+                        { opacity: drawerShown ? 1 : 0 },
                     ]}
                 >
                     {this.props.renderNavigationView()}
