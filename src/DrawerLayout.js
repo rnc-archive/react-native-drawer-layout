@@ -96,7 +96,7 @@ export default class DrawerLayout extends Component {
             : drawerPosition;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { openValue } = this.state;
 
         openValue.addListener(({ value }) => {
