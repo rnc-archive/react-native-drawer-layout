@@ -80,7 +80,14 @@ export default class DrawerLayout extends Component {
 
     constructor(props: PropType, context: any) {
         super(props, context);
-
+        this._panResponder = PanResponder.create({
+          onMoveShouldSetPanResponder: this._shouldSetPanResponder,
+          onPanResponderGrant: this._panResponderGrant,
+          onPanResponderMove: this._panResponderMove,
+          onPanResponderTerminationRequest: () => false,
+          onPanResponderRelease: this._panResponderRelease,
+          onPanResponderTerminate: () => {},
+      });
         this.state = {
             accessibilityViewIsModal: false,
             drawerShown: false,
@@ -116,14 +123,6 @@ export default class DrawerLayout extends Component {
             }
         });
 
-        this._panResponder = PanResponder.create({
-            onMoveShouldSetPanResponder: this._shouldSetPanResponder,
-            onPanResponderGrant: this._panResponderGrant,
-            onPanResponderMove: this._panResponderMove,
-            onPanResponderTerminationRequest: () => false,
-            onPanResponderRelease: this._panResponderRelease,
-            onPanResponderTerminate: () => {},
-        });
     }
 
     render() {
