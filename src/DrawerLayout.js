@@ -25,6 +25,7 @@ export type PropType = {
     drawerBackgroundColor?: string,
     drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open',
     drawerPosition: 'left' | 'right',
+    drawerSlideTargetWidth: number,
     drawerWidth: number,
     keyboardDismissMode?: 'none' | 'on-drag',
     onDrawerClose?: Function,
@@ -70,6 +71,7 @@ export default class DrawerLayout extends Component {
     static defaultProps = {
         drawerWidth: 0,
         drawerPosition: 'left',
+        drawerSlideTargetWidth: 35,
         useNativeAnimations: false,
     };
 
@@ -286,7 +288,7 @@ export default class DrawerLayout extends Component {
                     return true;
                 }
             } else {
-                if (moveX <= 35 && dx > 0) {
+                if (moveX <= this.props.drawerSlideTargetWidth && dx > 0) {
                     this._isClosing = false;
                     return true;
                 }
@@ -306,7 +308,9 @@ export default class DrawerLayout extends Component {
                     return true;
                 }
             } else {
-                if (moveX >= DEVICE_WIDTH - 35 && dx < 0) {
+                if (
+                  moveX >= DEVICE_WIDTH - this.props.drawerSlideTargetWidth && dx < 0
+                ) {
                     this._isClosing = false;
                     return true;
                 }
